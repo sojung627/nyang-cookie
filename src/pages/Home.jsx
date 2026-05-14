@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import FortuneModal from '../components/FortuneModal'
+import FortuneLoadingModal from '../components/FortuneLoadingModal'
 import FortuneResultModal from '../components/FortuneResultModal'
 
 function Home() {
   // 포춘쿠키 모달창
   const [isFortuneOpen, setIsFortuneOpen] = useState(false)
+  // 포춘쿠키 로딩창
+  const [isLoadingOpen, setIsLoadingOpen] = useState(false)
   // 포춘쿠키 결과창
   const [isResultOpen, setIsResultOpen] = useState(false)
 
@@ -46,9 +49,25 @@ function Home() {
         isOpen={isFortuneOpen}
         onClose={() => setIsFortuneOpen(false)}
         onOpenResult={() => {
+
+          // 포춘 모달 닫기
           setIsFortuneOpen(false)
-          setIsResultOpen(true)
-        }}/>
+
+          // 로딩 모달 열기
+          setIsLoadingOpen(true)
+
+          // 2.5초 뒤 결과 등장
+          setTimeout(() => {
+            setIsLoadingOpen(false)
+            setIsResultOpen(true)
+          }, 2500)
+        }}
+      />
+
+      <FortuneLoadingModal
+        isOpen={isLoadingOpen}
+        progress={55}
+      />
 
       <FortuneResultModal
         isOpen={isResultOpen}
