@@ -44,7 +44,11 @@ function Home() {
 
       <FortuneModal
         isOpen={isFortuneOpen}
-        onClose={() => setIsFortuneOpen(false)}/>
+        onClose={() => setIsFortuneOpen(false)}
+        onOpenResult={() => {
+          setIsFortuneOpen(false)
+          setIsResultOpen(true)
+        }}/>
 
       <FortuneResultModal
         isOpen={isResultOpen}
@@ -133,10 +137,6 @@ function Home() {
           </p>
         </button>
       </section>
-
-    <FortuneModal
-      isOpen={isFortuneOpen}
-      onClose={() => setIsFortuneOpen(false)}/>
 
       {/* 오늘의 미션 */}
       <section className="px-5 mt-10">
