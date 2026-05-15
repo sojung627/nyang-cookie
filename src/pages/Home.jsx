@@ -55,13 +55,13 @@ function Home({ setScreen }) {
       <div className="w-full max-w-[393px] min-h-screen bg-[#fcf8f5] pb-28">
 
         <header className="px-5 pt-10 flex items-start justify-between">
-          <div className="flex gap-3 min-w-0">
+          <div className="flex min-w-0">
             <div className="w-[52px] h-[52px] shrink-0 flex items-center justify-center">
               <img src={catProfile} alt="고양이" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
             </div>
             <div className="min-w-0 pt-1">
-              <h1 className="text-[18px] font-bold leading-tight text-zinc-900 whitespace-nowrap">집사야, 보고싶었다옹 💗</h1>
-              <p className="text-[14px] text-zinc-500 mt-1 whitespace-nowrap">오늘도 좋은 투자 되길 바랄게!</p>
+              <h1 className="text-[14px] font-bold leading-tight text-zinc-900 whitespace-nowrap">집사야, 보고싶었다옹 💗</h1>
+              <p className="text-[12px] text-zinc-500 mt-1 whitespace-nowrap">오늘도 좋은 투자 되길 바랄게!</p>
             </div>
           </div>
 
@@ -75,50 +75,55 @@ function Home({ setScreen }) {
         </header>
 
         <section className="grid grid-cols-2 gap-3 px-5 mt-6">
-          <div onClick={() => setScreen('코인')} className="relative bg-white rounded-[28px] h-[112px] px-4 py-4 shadow-[0_8px_22px_rgba(0,0,0,0.035)] overflow-hidden">
-            <div className="flex items-center h-full gap-3 pr-5">
+          <div onClick={() => setScreen('코인')} className="relative bg-white rounded-[28px] w-[170px] h-[85px] px-4 py-4 shadow-[0_8px_22px_rgba(0,0,0,0.035)] overflow-hidden">
+            <div className="flex items-center h-full gap-1 pr-5">
               <img src={catCoin} alt="코인" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
               <div className="min-w-0">
                 <p className="text-[13px] leading-none text-zinc-400 font-medium whitespace-nowrap">냥냥코인</p>
-                <h2 className="text-[24px] leading-none font-bold mt-3 whitespace-nowrap">{coin.toLocaleString()}</h2>
+                <h2 className="text-[20px] leading-none font-bold mt-1 whitespace-nowrap">{coin.toLocaleString()}</h2>
               </div>
             </div>
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#f0a08b] text-[30px] leading-none">›</span>
+            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-[#f0a08b] text-[30px] leading-none">›</span>
           </div>
 
-          <div onClick={() => setScreen('출석')} className="relative bg-white rounded-[28px] h-[112px] px-4 py-4 shadow-[0_8px_22px_rgba(0,0,0,0.035)] overflow-hidden">
-            <div className="flex items-start gap-3 pr-5">
-              <div className="text-[34px] leading-none shrink-0 mt-[9px]">
-                <img src={calender} alt="달력" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
-              </div>
+          <div onClick={() => setScreen('출석')} className="relative bg-white rounded-[28px] w-[170px] h-[85px] px-1 py-4 shadow-[0_8px_22px_rgba(0,0,0,0.035)] overflow-hidden">
+            <div className="flex items-center h-full gap-1 pr-5">
+              <img src={calender} alt="달력" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
               <div className="min-w-0">
-                <p className="text-[13px] leading-none text-zinc-400 font-medium whitespace-nowrap">출석 체크</p>
-                <h2 className="text-[23px] leading-none font-bold mt-3 whitespace-nowrap tracking-[-0.04em]">5일 연속</h2>
-                <div className="flex gap-[2px] text-[13px] mt-3 whitespace-nowrap">
-                  <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span><span className="opacity-30">🐾</span>
+                <p className="text-[13px] leading-none text-zinc-400 font-medium whitespace-nowrap">
+                  출석 체크
+                </p>
+                <h2 className="text-[20px] leading-none font-bold mt-1 whitespace-nowrap tracking-[-0.04em]">
+                  5일 연속
+                </h2>
+                <div className="flex gap-[2px] text-[10px] mt-1 whitespace-nowrap">
+                  <span>🐾</span>
+                  <span>🐾</span>
+                  <span>🐾</span>
+                  <span>🐾</span>
+                  <span className="opacity-30">🐾</span>
                 </div>
               </div>
             </div>
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#f0a08b] text-[30px] leading-none">›</span>
+            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[#f0a08b] text-[30px] leading-none">
+              ›
+            </span>
           </div>
         </section>
 
         <section onClick={() => setScreen("포춘쿠키")} className="mx-5 mt-6 relative overflow-hidden rounded-[34px] shadow-[0_10px_30px_rgba(255,182,193,0.12)] cursor-pointer active:scale-[0.985] transition-transform">
-
           {/* 배경 이미지 - 오버레이 없이 그대로 */}
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${mainCat})` }} />
-
-          {/* ❌ 이 줄 삭제: <div className="absolute inset-0 bg-[#fff3ec]/25" /> */}
 
           <div className="relative z-10 h-[300px] p-5 flex flex-col justify-between">
 
             {/* 상단 - 반투명 배경 없이 그림자로만 가독성 확보 */}
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-zinc-500 text-[13px] drop-shadow-sm">Lv. 7 주냥이</p>
-                <div className="flex items-center gap-2 mt-2">
-                  <h2 className="text-[22px] font-bold leading-none drop-shadow-sm">쿠키</h2>
-                  <span className="text-zinc-400 text-[18px]">✎</span>
+                <p className="text-zinc-500 text-[12px] drop-shadow-sm">Lv. 7 주냥이</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <h2 className="text-[18px] font-bold leading-none drop-shadow-sm">쿠키</h2>
+                  <span className="text-zinc-400 text-[15px]">✎</span>
                 </div>
               </div>
 
@@ -143,7 +148,7 @@ function Home({ setScreen }) {
                   e.stopPropagation()
                   setIsFortuneOpen(true)
                 }}
-                className="mt-3 w-full h-[60px] rounded-[24px] bg-[#ffb7c5]/90 py-5 shadow-[0_8px_18px_rgba(255,183,197,0.45)] active:scale-[0.985] transition-transform">
+                className="mt-2 w-full h-[60px] rounded-[24px] bg-[#ffb7c5]/90 py-5 shadow-[0_8px_18px_rgba(255,183,197,0.45)] active:scale-[0.985] transition-transform">
                 <div className="flex items-center justify-center gap-3">
                   <span className="text-[32px] -mt-4">🥠</span>
                   <div className="text-left -mt-4">
