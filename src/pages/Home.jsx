@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import FortuneModal from '../components/FortuneModal'
 import FortuneLoadingModal from '../components/FortuneLoadingModal'
 import FortuneResultModal from '../components/FortuneResultModal'
-import catProfile from '../assets/cat-profile.png'
+import NicknameModal from '../components/NicknameModal'
+import catProfile from '../assets/catProfile.png'
 import catCoin from '../assets/catCoin.png'
 import calender from '../assets/calender.png'
 import mainCat from '../assets/mainCat.png'
@@ -16,6 +17,7 @@ function Home({ setScreen }) {
   const [isFortuneOpen, setIsFortuneOpen] = useState(false)
   const [isLoadingOpen, setIsLoadingOpen] = useState(false)
   const [isResultOpen, setIsResultOpen] = useState(false)
+  const [isNameModalOpen, setIsNameModalOpen] = useState(false)
   const [reward, setReward] = useState(0)
 
   const [coin, setCoin] = useState(() => {
@@ -147,7 +149,7 @@ function Home({ setScreen }) {
           <div className="flex items-center gap-2 shrink-0">
             <div className="bg-white rounded-full w-[45px] h-[45px] shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex items-center gap-2">
               <span className="text-[13px]">
-                <img src={catPaw} alt="고양이 발바닥" className="ml-0.3 w-[30px] h-[30px] object-contain select-none pointer-events-none" />
+                <img src={catCoin} alt="코인" className="ml-0.3 w-[30px] h-[30px] object-contain select-none pointer-events-none" />
               </span>
               <span className="font-semibold text-[13px] -ml-3">x3</span>
             </div>
@@ -158,7 +160,7 @@ function Home({ setScreen }) {
         </header>
 
         <section className="grid grid-cols-2 gap-3 px-5 mt-6">
-          <div onClick={() => setScreen('코인')} className="relative bg-white rounded-[28px] w-[170px] h-[85px] px-4 py-4 shadow-[0_8px_22px_rgba(0,0,0,0.035)] overflow-hidden">
+          <div onClick={() => setScreen('코인')} className="relative bg-white rounded-[28px] w-[160px] h-[80px] px-4 py-4 shadow-[0_8px_22px_rgba(0,0,0,0.035)] overflow-hidden">
             <div className="flex items-center h-full gap-1 pr-5">
               <img src={catCoin} alt="코인" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
               <div className="min-w-0">
@@ -166,26 +168,26 @@ function Home({ setScreen }) {
                 <h2 className="text-[20px] leading-none font-bold mt-1 whitespace-nowrap">{coin.toLocaleString()}</h2>
               </div>
             </div>
-            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-[#f0a08b] text-[30px] leading-none">›</span>
+            <span className="absolute right-5 top-1/2 -translate-y-1/2 text-[#f0a08b] text-[30px] leading-none">›</span>
           </div>
 
-          <div onClick={() => setScreen('출석')} className="relative bg-white rounded-[28px] w-[170px] h-[85px] px-1 py-4 shadow-[0_8px_22px_rgba(0,0,0,0.035)] overflow-hidden">
+          <div onClick={() => setScreen('출석')} className="relative bg-white rounded-[28px] w-[160px] h-[80px] px-1 py-4 shadow-[0_8px_22px_rgba(0,0,0,0.035)] overflow-hidden">
             <div className="flex items-center h-full gap-1 pr-5">
               <img src={calender} alt="달력" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
               <div className="min-w-0">
                 <p className="text-[13px] leading-none text-zinc-400 font-medium whitespace-nowrap">
                   출석 체크
                 </p>
-                <h2 className="text-[20px] leading-none font-bold mt-1 whitespace-nowrap tracking-[-0.04em]">
+                <h2 className="text-[18px] leading-none font-bold mt-1 whitespace-nowrap tracking-[-0.04em]">
                   5일 연속
                 </h2>
-                <div className="flex gap-[2px] text-[10px] mt-1 whitespace-nowrap">
-                  <span>🐾</span>
-                  <span>🐾</span>
-                  <span>🐾</span>
-                  <span>🐾</span>
-                  <span className="opacity-30">🐾</span>
-                </div>
+{/*                 <div className="flex -mt-2 whitespace-nowrap"> */}
+{/*                   <span><img src={catPaw} alt="고양이 발바닥" className="w-[35px] h-[35px] object-contain select-none pointer-events-none" /></span> */}
+{/*                   <span><img src={catPaw} alt="고양이 발바닥" className="w-[35px] h-[35px] object-contain select-none pointer-events-none" /></span> */}
+{/*                   <span><img src={catPaw} alt="고양이 발바닥" className="w-[35px] h-[35px] object-contain select-none pointer-events-none" /></span> */}
+{/*                   <span><img src={catPaw} alt="고양이 발바닥" className="w-[35px] h-[35px] object-contain select-none pointer-events-none" /></span> */}
+{/*                   <span><img src={catPaw} alt="고양이 발바닥" className="w-[35px] h-[35px] object-contain select-none pointer-events-none" /></span> */}
+{/*                 </div> */}
               </div>
             </div>
             <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[#f0a08b] text-[30px] leading-none">
@@ -204,9 +206,10 @@ function Home({ setScreen }) {
               <div>
                 <p className="text-zinc-500 text-[12px] drop-shadow-sm">Lv. 7 주냥이</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <span className="text-zinc-400 text-[13px]">
+                  <button onClick={() => setIsNameModalOpen(true)}
+                  className="text-zinc-400 text-[13px] active:scale-90 transition-transform">
                     <i className="bi bi-pencil-square"></i>
-                  </span>
+                  </button>
                   <h2 className="text-[18px] font-bold leading-none drop-shadow-sm">쿠키</h2>
                 </div>
               </div>
@@ -291,8 +294,8 @@ function Home({ setScreen }) {
         />
 
         <FortuneLoadingModal isOpen={isLoadingOpen} />
-
         <FortuneResultModal isOpen={isResultOpen} reward={reward} onClose={() => setIsResultOpen(false)} />
+        <NicknameModal isOpen={isNameModalOpen} onClose={() => setIsNameModalOpen(false)}/>
 
       </div>
     </div>

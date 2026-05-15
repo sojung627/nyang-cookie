@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import CoinPage from './pages/CoinPage'
 import Attendance from './pages/Attendance'
 import BottomNav from './components/BottomNav'
+import NicknameModal from './components/NicknameModal'
 
 function App() {
 
@@ -26,6 +27,9 @@ function App() {
 
       {/* 코인 페이지 */}
       {current === "코인" && (<CoinPage onBack={() => setCurrent("홈")} />)}
+
+      {/* 고양이 닉네임 */}
+      {current === "닉네임" && (<NicknameModal onBack={() => setCurrent("홈")} />)}
 
       <BottomNav
         current={current}

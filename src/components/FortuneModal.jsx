@@ -10,8 +10,7 @@ function FortuneModal({ isOpen, onClose, onOpenResult }) {
         {/* 닫기 버튼 */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-12 h-12 bg-white rounded-full shadow-sm text-2xl text-zinc-400"
-        >
+          className="absolute top-5 right-5 w-12 h-12 bg-white rounded-full shadow-sm text-2xl text-zinc-400">
           ✕
         </button>
 
@@ -57,12 +56,10 @@ function FortuneModal({ isOpen, onClose, onOpenResult }) {
 
             {/* 쿠키 */}
             <div className="w-72 h-72 rounded-full bg-[#fff3ec] flex items-center justify-center shadow-sm">
-
               <div className="text-center">
                 <div className="text-[120px] leading-none">
                   🐱
                 </div>
-
                 <div className="text-8xl -mt-2">
                   🥠
                 </div>
@@ -74,12 +71,10 @@ function FortuneModal({ isOpen, onClose, onOpenResult }) {
         {/* 열기 버튼 */}
         <button className="w-full mt-10 bg-gradient-to-r from-[#ffb7b2] to-[#ff9eaa] text-white py-5 rounded-[32px] shadow-sm"
         onClick={() => onOpenResult()}>
-
           <div className="flex flex-col items-center">
             <span className="text-3xl">
               🐾
             </span>
-
             <span className="text-3xl font-bold mt-2">
               쿠키 열기
             </span>
