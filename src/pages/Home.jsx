@@ -131,7 +131,7 @@ function Home({ setScreen }) {
 
             {/* 하단 - 경험치 + 버튼 */}
             <div>
-              <div className="flex justify-between text-[12px] text-zinc-500 mb-2">
+              <div className="flex justify-between text-[12px] text-zinc-500 mt-1">
                 <span>경험치</span>
                 <span>750 / 1,000</span>
               </div>
@@ -143,12 +143,12 @@ function Home({ setScreen }) {
                   e.stopPropagation()
                   setIsFortuneOpen(true)
                 }}
-                className="mt-5 w-full rounded-[24px] bg-[#ffb7c5]/90 py-5 shadow-[0_8px_18px_rgba(255,183,197,0.45)] active:scale-[0.985] transition-transform">
+                className="mt-3 w-full h-[60px] rounded-[24px] bg-[#ffb7c5]/90 py-5 shadow-[0_8px_18px_rgba(255,183,197,0.45)] active:scale-[0.985] transition-transform">
                 <div className="flex items-center justify-center gap-3">
-                  <span className="text-[32px]">🥠</span>
-                  <div className="text-left">
-                    <p className="text-white font-bold text-[18px]">오늘의 포춘쿠키 열기</p>
-                    <p className="text-white/90 text-[12px] mt-1">하루에 한 번, 행운을 확인해보세요!</p>
+                  <span className="text-[32px] -mt-4">🥠</span>
+                  <div className="text-left -mt-4">
+                    <p className="text-white font-bold text-[16px]">오늘의 포춘쿠키 열기</p>
+                    <p className="text-white/90 text-[10px] mt-1">하루에 한 번, 행운을 확인해보세요!</p>
                   </div>
                 </div>
               </button>
