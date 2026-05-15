@@ -104,22 +104,32 @@ function Home({ setScreen }) {
         </section>
 
         <section onClick={() => setScreen("포춘쿠키")} className="mx-5 mt-6 relative overflow-hidden rounded-[34px] shadow-[0_10px_30px_rgba(255,182,193,0.12)] cursor-pointer active:scale-[0.985] transition-transform">
+
+          {/* 배경 이미지 - 오버레이 없이 그대로 */}
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${mainCat})` }} />
-          <div className="absolute inset-0 bg-[#fff3ec]/25" />
+
+          {/* ❌ 이 줄 삭제: <div className="absolute inset-0 bg-[#fff3ec]/25" /> */}
+
           <div className="relative z-10 h-[300px] p-5 flex flex-col justify-between">
+
+            {/* 상단 - 반투명 배경 없이 그림자로만 가독성 확보 */}
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-zinc-500 text-[13px]">Lv. 7 주냥이</p>
+                <p className="text-zinc-500 text-[13px] drop-shadow-sm">Lv. 7 주냥이</p>
                 <div className="flex items-center gap-2 mt-2">
-                  <h2 className="text-[22px] font-bold leading-none">쿠키</h2>
+                  <h2 className="text-[22px] font-bold leading-none drop-shadow-sm">쿠키</h2>
                   <span className="text-zinc-400 text-[18px]">✎</span>
                 </div>
               </div>
-              <div className="bg-white rounded-[18px] px-4 py-3 shadow-sm text-center">
-                <p className="text-[11px] text-zinc-500">기분 😊</p>
-                <p className="font-bold mt-1 text-[14px]">좋아!</p>
-              </div>
+
+                {/* 기분 말풍선 - 흰 배경으로 배경과 분리 */}
+                <div className="w-[130px] h-[70px] bg-white/95 rounded-[18px] px-4 py-3 shadow-md text-center animate-[float_2.8s_ease-in-out_infinite]">
+                  <p className="text-[11px] text-zinc-500"></p>
+                  <p className="font-bold mt-1 text-[14px]"></p>
+                </div>
             </div>
+
+            {/* 하단 - 경험치 + 버튼 */}
             <div>
               <div className="flex justify-between text-[12px] text-zinc-500 mb-2">
                 <span>경험치</span>
@@ -133,17 +143,12 @@ function Home({ setScreen }) {
                   e.stopPropagation()
                   setIsFortuneOpen(true)
                 }}
-                className="mt-5 w-full rounded-[24px] bg-[#ffb7c5]/90 py-5 shadow-[0_8px_18px_rgba(255,183,197,0.3)] active:scale-[0.985] transition-transform">
+                className="mt-5 w-full rounded-[24px] bg-[#ffb7c5]/90 py-5 shadow-[0_8px_18px_rgba(255,183,197,0.45)] active:scale-[0.985] transition-transform">
                 <div className="flex items-center justify-center gap-3">
                   <span className="text-[32px]">🥠</span>
-
                   <div className="text-left">
-                    <p className="text-white font-bold text-[18px]">
-                      오늘의 포춘쿠키 열기
-                    </p>
-                    <p className="text-white/90 text-[12px] mt-1">
-                      하루에 한 번, 행운을 확인해보세요!
-                    </p>
+                    <p className="text-white font-bold text-[18px]">오늘의 포춘쿠키 열기</p>
+                    <p className="text-white/90 text-[12px] mt-1">하루에 한 번, 행운을 확인해보세요!</p>
                   </div>
                 </div>
               </button>
