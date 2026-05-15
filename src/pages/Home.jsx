@@ -6,6 +6,8 @@ import catProfile from '../assets/cat-profile.png'
 import catCoin from '../assets/catCoin.png'
 import calender from '../assets/calender.png'
 import mainCat from '../assets/mainCat.png'
+import fourtuneCookie from '../assets/fourtuneCookie.png'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 function Home({ setScreen }) {
   const STORAGE_KEY = 'nyangcookie_coin'
@@ -50,6 +52,24 @@ function Home({ setScreen }) {
     { title: '충동 소비 참기', reward: 30, bg: 'bg-[#faf4ff]', icon: '🛍️' },
   ]
 
+  const messages = [
+    {
+      title: '집사야, 보고싶었다옹 💗',
+      desc: '오늘도 좋은 투자 되길 바란다냥!'
+    },
+    {
+      title: '냥냥! 오늘도 왔냥 🐾',
+      desc: '포춘쿠키 열고 행운 받아가라옹!'
+    },
+    {
+      title: '오늘도 힘내자 집사야 ✨',
+      desc: '내가 항상 응원하고 있다옹!'
+    }
+  ]
+
+  const randomMessage =
+    messages[Math.floor(Math.random() * messages.length)]
+
   return (
     <div className="min-h-screen bg-[#f5f1ed] flex justify-center">
       <div className="w-full max-w-[393px] min-h-screen bg-[#fcf8f5] pb-28">
@@ -60,8 +80,12 @@ function Home({ setScreen }) {
               <img src={catProfile} alt="고양이" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
             </div>
             <div className="min-w-0 pt-1">
-              <h1 className="text-[14px] font-bold leading-tight text-zinc-900 whitespace-nowrap">집사야, 보고싶었다옹 💗</h1>
-              <p className="text-[12px] text-zinc-500 mt-1 whitespace-nowrap">오늘도 좋은 투자 되길 바랄게!</p>
+              <h1 className="text-[14px] font-bold leading-tight text-zinc-900 whitespace-nowrap">
+                {randomMessage.title}
+              </h1>
+              <p className="text-[12px] text-zinc-500 mt-1 whitespace-nowrap">
+                {randomMessage.desc}
+              </p>
             </div>
           </div>
 
@@ -70,7 +94,9 @@ function Home({ setScreen }) {
               <span className="text-[13px]">🐾</span>
               <span className="font-semibold text-[13px]">3</span>
             </div>
-            <button className="text-[20px] leading-none">🔔</button>
+            <button className="text-[20px] leading-none">
+                <i className="bi bi-bell"></i>
+            </button>
           </div>
         </header>
 
@@ -111,7 +137,7 @@ function Home({ setScreen }) {
           </div>
         </section>
 
-        <section onClick={() => setScreen("포춘쿠키")} className="mx-5 mt-6 relative overflow-hidden rounded-[34px] shadow-[0_10px_30px_rgba(255,182,193,0.12)] cursor-pointer active:scale-[0.985] transition-transform">
+        <section className="mx-5 mt-6 relative overflow-hidden rounded-[34px] shadow-[0_10px_30px_rgba(255,182,193,0.12)] cursor-pointer active:scale-[0.985] transition-transform">
           {/* 배경 이미지 - 오버레이 없이 그대로 */}
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${mainCat})` }} />
 
@@ -122,8 +148,10 @@ function Home({ setScreen }) {
               <div>
                 <p className="text-zinc-500 text-[12px] drop-shadow-sm">Lv. 7 주냥이</p>
                 <div className="flex items-center gap-2 mt-1">
+                  <span className="text-zinc-400 text-[13px]">
+                    <i className="bi bi-pencil-square"></i>
+                  </span>
                   <h2 className="text-[18px] font-bold leading-none drop-shadow-sm">쿠키</h2>
-                  <span className="text-zinc-400 text-[15px]">✎</span>
                 </div>
               </div>
 
@@ -144,13 +172,12 @@ function Home({ setScreen }) {
                 <div className="w-[75%] h-full bg-[#ffb7c5] rounded-full"></div>
               </div>
               <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setIsFortuneOpen(true)
-                }}
+                onClick={(e) => { e.stopPropagation(); setIsFortuneOpen(true) }}
                 className="mt-2 w-full h-[60px] rounded-[24px] bg-[#ffb7c5]/90 py-5 shadow-[0_8px_18px_rgba(255,183,197,0.45)] active:scale-[0.985] transition-transform">
                 <div className="flex items-center justify-center gap-3">
-                  <span className="text-[32px] -mt-4">🥠</span>
+                  <span className="text-[32px] -mt-4">
+                    <img src={fourtuneCookie} alt="포춘쿠키" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
+                  </span>
                   <div className="text-left -mt-4">
                     <p className="text-white font-bold text-[16px]">오늘의 포춘쿠키 열기</p>
                     <p className="text-white/90 text-[10px] mt-1">하루에 한 번, 행운을 확인해보세요!</p>
@@ -164,7 +191,7 @@ function Home({ setScreen }) {
         <section className="px-5 mt-10">
           <div className="flex items-center justify-between">
             <h2 className="text-[24px] font-bold">오늘의 미션</h2>
-            <button className="text-zinc-400 text-[14px]">모두 보기</button>
+            <button className="text-zinc-400 text-[14px]">모두 보기 {'>'} </button>
           </div>
 
           <div className="grid grid-cols-2 gap-3 mt-5">
@@ -172,7 +199,7 @@ function Home({ setScreen }) {
               <div key={mission.title} className={`${mission.bg} rounded-[26px] p-5 min-h-[145px] shadow-[0_4px_18px_rgba(0,0,0,0.03)]`}>
                 <div className="text-[34px]">{mission.icon}</div>
                 <h3 className="font-bold text-[16px] leading-snug mt-3">{mission.title}</h3>
-                <p className="text-zinc-400 mt-3 text-[13px]">냥냥코인 {mission.reward}</p>
+                <p className="text-zinc-400 mt-3 text-[13px]">냥냥코인 {mission.reward}+</p>
               </div>
             ))}
           </div>
