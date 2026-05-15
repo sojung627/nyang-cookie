@@ -7,6 +7,7 @@ import catCoin from '../assets/catCoin.png'
 import calender from '../assets/calender.png'
 import mainCat from '../assets/mainCat.png'
 import fourtuneCookie from '../assets/fourtuneCookie.png'
+import catPaw from '../assets/catPaw.png'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 function Home({ setScreen }) {
@@ -64,11 +65,65 @@ function Home({ setScreen }) {
     {
       title: '오늘도 힘내자 집사야 ✨',
       desc: '내가 항상 응원하고 있다옹!'
+    },
+    {
+      title: '오늘은 왠지 좋은 일이 생길 것 같다냥 🍀',
+      desc: '기분 좋은 하루 시작해보자옹!'
+    },
+    {
+      title: '집사 너무 무리하지 말라냥 😼',
+      desc: '쉬는 것도 투자다옹!'
+    },
+    {
+      title: '행운이 살금살금 🐾',
+      desc: '다가오는 중이다냥!'
+    },
+    {
+      title: '오늘의 선택, 나쁘지 않다냥 👍',
+      desc: '자신감 가지고 가보자옹!'
+    },
+    {
+      title: '오늘은 대길이다냥 🎯',
+      desc: '운이 꽤 괜찮게 흐르고 있다옹!'
+    },
+    {
+      title: '집사야, 웃으면 복이 온다냥 😆',
+      desc: '오늘은 더 많이 웃어보라옹!'
+    },
+    {
+      title: '비밀인데… 😼',
+      desc: '오늘 좀 잘 풀린다냥!'
     }
   ]
 
   const randomMessage =
     messages[Math.floor(Math.random() * messages.length)]
+
+  const catMessages = [
+    '집사야 반갑다냥 🐾',
+    '오늘도 좋은 하루 보내라냥 ☀️',
+    '포춘쿠키 열 시간이다냥 🥠',
+    '집사 냄새 난다냥 💗',
+    '행운이 오길 바란다냥 ✨',
+    '간식 생각하고 있었다냥 🍓',
+    '너 보니까 기분 좋아졌다냥 😽',
+    '무리하지 말고 쉬어가라냥 🌷',
+    '냥냥코인 모으는 중이냥 💰',
+    '오늘 시장은 어떨 것 같냥 📈',
+    '쿠키가 응원하고 있다냥 💕',
+    '출석체크 잊으면 안된다냥 📅',
+    '집사야 쓰담쓰담 해달라냥 🤍',
+    '행운이 곧 도착한다냥 🍀',
+    '오늘도 와줘서 고맙다냥 ✨',
+    '따뜻한 하루 보내라냥 ☁️',
+    '좋은 투자 하길 바란다냥 💸',
+    '쿠키가 기다리고 있었다냥 🐱',
+    '피곤하면 잠깐 쉬어가라냥 🌙',
+    '오늘도 행복해야 한다냥 💖'
+  ]
+
+  const randomCatMessage =
+    catMessages[Math.floor(Math.random() * catMessages.length)]
 
   return (
     <div className="min-h-screen bg-[#f5f1ed] flex justify-center">
@@ -90,9 +145,11 @@ function Home({ setScreen }) {
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <div className="bg-white rounded-full px-4 py-2 shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex items-center gap-2">
-              <span className="text-[13px]">🐾</span>
-              <span className="font-semibold text-[13px]">3</span>
+            <div className="bg-white rounded-full w-[45px] h-[45px] shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex items-center gap-2">
+              <span className="text-[13px]">
+                <img src={catPaw} alt="고양이 발바닥" className="ml-0.3 w-[30px] h-[30px] object-contain select-none pointer-events-none" />
+              </span>
+              <span className="font-semibold text-[13px] -ml-3">x3</span>
             </div>
             <button className="text-[20px] leading-none">
                 <i className="bi bi-bell"></i>
@@ -142,7 +199,6 @@ function Home({ setScreen }) {
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${mainCat})` }} />
 
           <div className="relative z-10 h-[300px] p-5 flex flex-col justify-between">
-
             {/* 상단 - 반투명 배경 없이 그림자로만 가독성 확보 */}
             <div className="flex items-start justify-between">
               <div>
@@ -156,9 +212,11 @@ function Home({ setScreen }) {
               </div>
 
                 {/* 기분 말풍선 - 흰 배경으로 배경과 분리 */}
-                <div className="w-[130px] h-[70px] bg-white/95 rounded-[18px] px-4 py-3 shadow-md text-center animate-[float_2.8s_ease-in-out_infinite]">
-                  <p className="text-[11px] text-zinc-500"></p>
-                  <p className="font-bold mt-1 text-[14px]"></p>
+                <div className="w-[130px] h-[70px] bg-white rounded-[18px] px-4 py-3 shadow-md text-center animate-[float_2.8s_ease-in-out_infinite]">
+                  <div className="absolute bottom-[-8px] left-[28px] rotate-[10deg] w-0 h-0 border-l-[4px] border-l-transparent border-r-[14px] border-r-transparent border-t-[14px] border-t-white"></div>
+                  <p className="font-bold mt-1 text-[13px]">
+                    {randomCatMessage}
+                  </p>
                 </div>
             </div>
 
