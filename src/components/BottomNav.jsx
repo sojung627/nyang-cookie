@@ -11,7 +11,7 @@ function BottomNav({ current, setScreen }) {
   }
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-[#fcf8f5] border-t border-[#f5e6de] px-3 py-3 flex justify-around z-50">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[393px] bg-[#fcf8f5] border-t border-[#f5e6de] px-3 py-3 flex justify-around z-50">
 
       {screens.map((s) => (
         <button
