@@ -1,9 +1,87 @@
 function FortuneResultModal({
   isOpen,
   onClose,
-  reward = 50,
-  message = "흐름을 타는 하루예요! 지금의 작은 선택이 내일의 큰 수익으로 돌아올 수 있어요. 💗",
 }) {
+
+const rewardPool = [
+  { value: 10, weight: 14 },
+  { value: 20, weight: 13 },
+  { value: 30, weight: 12 },
+
+  { value: 40, weight: 10 },
+  { value: 50, weight: 9 },
+  { value: 60, weight: 8 },
+
+  { value: 70, weight: 6 },
+  { value: 80, weight: 4 },
+  { value: 90, weight: 2.5 },
+  { value: 100, weight: 1.5 },
+
+  // 특수 숫자
+  { value: 11, weight: 2 },
+  { value: 22, weight: 2 },
+  { value: 33, weight: 2 },
+
+  { value: 44, weight: 1.5 },
+  { value: 55, weight: 1.2 },
+  { value: 66, weight: 1 },
+  { value: 77, weight: 0.8 },
+  { value: 88, weight: 0.6 },
+  { value: 99, weight: 0.4 },
+
+  // 잭팟
+  { value: 999, weight: 0.15 },
+]
+
+  function getRandomReward() {
+    const totalWeight = rewardPool.reduce(
+      (sum, item) => sum + item.weight,
+      0
+    )
+
+    let random = Math.random() * totalWeight
+
+    for (const item of rewardPool) {
+      random -= item.weight
+
+      if (random <= 0) {
+        return item.value
+      }
+    }
+
+    return 10
+  }
+
+  const fortuneMessages = [
+    "흐름을 타는 하루다냥! 지금의 작은 선택이 내일의 큰 수익으로 돌아올 수 있다옹 💗",
+    "조급함보다 기다림이 더 좋은 결과를 가져오는 하루다냥 🐾",
+    "오늘의 작은 관심이 내일의 큰 행운으로 이어질지도 모른다냥 ✨",
+    "행운은 예상하지 못한 순간에 살짝 찾아온다옹 🍀",
+    "조용히 흐름을 지켜보면 좋은 기회를 발견할 수 있다냥 🐱",
+    "오늘은 욕심보다 균형이 더 중요한 하루다냥 💕",
+    "마음이 편안할수록 더 좋은 선택을 할 수 있다옹 🌸",
+    "천천히 한 걸음씩 나아가도 충분히 멋진 하루다냥 ✨",
+    "뜻밖의 반가운 소식이 찾아올 가능성이 보인다냥 💗",
+    "오늘의 작은 절약이 미래의 큰 행복으로 이어질 수 있다옹 🪙",
+    "행운은 이미 집사 곁에서 꼬리를 흔들고 있다냥 🐾",
+    "너무 서두르지 않아도 괜찮다냥! 좋은 흐름은 천천히 찾아온다옹 💗",
+    "오늘은 평소보다 더 반짝이는 기운이 느껴지는 하루다냥 ✨",
+    "작은 도전 하나가 의외의 행운을 불러올 수도 있다냥 🍀",
+    "내가 보기엔 오늘 집사님의 운이 꽤 좋아 보인다냥 🐱",
+    "차분하게 생각하면 더 좋은 선택이 기다리고 있다옹 💕",
+    "오늘의 미소가 행운까지 데려올지도 모른다냥 🌸",
+    "지금의 꾸준함이 나중에 큰 보상으로 돌아올 하루다냥 🪙",
+    "행운은 멀리 있지 않다냥! 집사님 바로 곁에 있다옹 💗",
+    "오늘은 작은 행복들을 하나씩 발견하게 되는 하루다냥 🐾",
+  ]
+
+  const reward = getRandomReward()
+
+  const message =
+    fortuneMessages[
+      Math.floor(Math.random() * fortuneMessages.length)
+    ]
+
   if (!isOpen) return null
 
   return (

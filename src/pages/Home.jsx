@@ -26,7 +26,6 @@ function Home() {
             <h1 className="text-2xl font-bold text-zinc-800">
               집사야, 보고싶었다옹 💗
             </h1>
-
             <p className="text-zinc-500 mt-1">
               오늘도 좋은 투자 되길 바랄게!
             </p>
