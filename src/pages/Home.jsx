@@ -13,6 +13,7 @@ import walletIcon from '../assets/main/walletIcon.png'
 import newsIcon from '../assets/main/newsIcon.png'
 import bagIcon from '../assets/main/bagIcon.png'
 import bookIcon from '../assets/main/bookIcon.png'
+import testCat from '../assets/main/testCat.png'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 function Home({ setScreen }) {
@@ -111,7 +112,7 @@ function Home({ setScreen }) {
     '포춘쿠키 열 시간이다냥 🥠',
     '집사 냄새 난다냥 💗',
     '행운이 오길 바란다냥 ✨',
-    '간식 생각하고 있었다냥 🍓',
+    '간식 생각하고 있었다냥 😽',
     '너 보니까 기분 좋아졌다냥 😽',
     '무리하지 말고 쉬어가라냥 🌷',
     '냥냥코인 모으는 중이냥 💰',
@@ -280,11 +281,13 @@ function Home({ setScreen }) {
         <section className="px-5 mt-8 mb-8">
           <div className="bg-[#f4ecff] rounded-[30px] p-6 flex items-center justify-between shadow-[0_4px_18px_rgba(0,0,0,0.03)]">
             <div>
-              <p className="text-violet-400 text-[13px] font-medium">나의 투자 성향은?</p>
-              <h2 className="text-[24px] font-bold text-violet-700 mt-2 leading-tight">주린이 심리테스트</h2>
-              <p className="text-violet-500 mt-2 text-[13px]">지금 바로 테스트해보세요!</p>
+              <p className="text-violet-400 text-[13px] font-semibold">나의 투자 성향은?</p>
+              <h2 className="text-[24px] font-bold text-violet-700 mt-2 leading-tight">주린이 <br />심리테스트</h2>
+              <p className="text-violet-500 font-semibold mt-2 text-[13px]">테스트해보세요!</p>
             </div>
-            <div className="text-[72px]">🐱</div>
+            <div className="text-[72px]">
+              <img src={testCat} alt="테스트이미지" className="w-[150px] h-[150px] object-contain select-none pointer-events-none" />
+            </div>
           </div>
         </section>
 

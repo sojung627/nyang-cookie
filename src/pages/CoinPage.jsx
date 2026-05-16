@@ -1,4 +1,5 @@
 import React from 'react'
+import catCoin from '../assets/main/catCoin.png'
 
 function CoinPage({ onBack, coin = 2450 }) {
 
@@ -63,21 +64,20 @@ function CoinPage({ onBack, coin = 2450 }) {
   ]
 
   return (
-    <div className="min-h-screen bg-[#fcf8f5] pb-32">
-
+  <div className="min-h-screen bg-[#f5f1ed] flex justify-center">
+    <div className="w-full max-w-[393px] min-h-screen bg-[#fcf8f5] pb-28">
       {/* 헤더 */}
       <header className="px-5 pt-12 flex items-center justify-center relative">
-
         <button
           onClick={onBack}
-          className="absolute left-5 text-3xl text-zinc-500"
-        >
-          ←
+          className="absolute left-5 text-3xl text-zinc-500">
+          &lt;
         </button>
-
-        <h1 className="text-3xl font-bold text-zinc-800 flex items-center gap-2">
+        <h1 className="relative text-3xl font-bold text-zinc-800 flex items-center -gap-5">
           냥냥코인
-          <span>🪙</span>
+          <span>
+            <img src={catCoin} alt="코인" className="relative top-[2px] right-[3px] w-[70px] h-[70px] object-contain select-none pointer-events-none" />
+          </span>
         </h1>
       </header>
 
@@ -85,9 +85,7 @@ function CoinPage({ onBack, coin = 2450 }) {
 
         {/* 현재 보유 코인 */}
         <section className="bg-[#fff3ec] rounded-[36px] p-6 shadow-sm">
-
           <div className="flex items-center gap-5">
-
             <div className="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0">
               <span className="text-7xl">
                 🪙
@@ -95,21 +93,16 @@ function CoinPage({ onBack, coin = 2450 }) {
             </div>
 
             <div className="flex-1">
-
               <p className="text-zinc-400 text-lg">
                 현재 보유 코인
               </p>
-
               <h2 className="text-7xl font-bold text-zinc-800 mt-3">
                 {coin.toLocaleString()}
               </h2>
-
               <div className="mt-5 bg-white rounded-full px-5 py-3 inline-flex items-center gap-2 shadow-sm">
-
                 <span className="text-xl">
                   🪙
                 </span>
-
                 <p className="text-zinc-700 font-medium">
                   이번 주
                   <span className="text-[#ff9eaa] font-bold">
@@ -308,6 +301,7 @@ function CoinPage({ onBack, coin = 2450 }) {
         </section>
       </div>
     </div>
+   </div>
   )
 }
 
