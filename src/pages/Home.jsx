@@ -260,7 +260,10 @@ function Home({ setScreen }) {
               <div key={mission.title} className={`${mission.bg} rounded-[26px] p-5 min-h-[145px] shadow-[0_4px_18px_rgba(0,0,0,0.03)]`}>
                 <div className="text-[34px]">{mission.icon}</div>
                 <h3 className="font-bold text-[16px] leading-snug mt-3">{mission.title}</h3>
-                <p className="text-zinc-400 mt-3 text-[13px]">냥냥코인 {mission.reward}+</p>
+                <p className="relative right-[9px] flex text-zinc-400 mt-3 text-[13px]">
+                    <img src={catCoin} alt="코인" className="relative bottom-[9px] w-[40px] h-[40px] object-contain select-none pointer-events-none" />
+                    냥냥코인 {mission.reward}+
+                </p>
               </div>
             ))}
           </div>
