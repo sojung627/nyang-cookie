@@ -1,5 +1,8 @@
 import React from 'react'
 import newCatCoin from '../assets/main/newCatCoin.png'
+import fortuneCookie from '../assets/main/fortuneCookie.png'
+import calender from '../assets/main/calender.png'
+import bagIcon from '../assets/main/bagIcon.png'
 
 function CoinPage({ onBack, coin = 2450 }) {
 
@@ -8,25 +11,25 @@ function CoinPage({ onBack, coin = 2450 }) {
       title: "포춘쿠키 열기",
       date: "2026.05.16 14:30",
       reward: "+50",
-      icon: "🥠",
+      image: fortuneCookie,
     },
     {
       title: "출석 체크",
-      date: "2026.05.16 09:12",
+      date: "05.16 09:12",
       reward: "+30",
-      icon: "🗓️",
+      image: calender,
     },
     {
       title: "오늘의 미션 완료",
-      date: "2026.05.16 08:45",
+      date: "05.16 08:45",
       reward: "+40",
-      icon: "📋",
+      
     },
     {
       title: "상점 구매 취소 보상",
       date: "2026.05.15 16:20",
       reward: "+20",
-      icon: "🛍️",
+      image: bagIcon,
     },
   ]
 
@@ -114,51 +117,38 @@ function CoinPage({ onBack, coin = 2450 }) {
 
         {/* 코인 획득 내역 */}
         <section>
-
           <div className="flex items-center justify-between mb-4">
-
             <h2 className="text-3xl font-bold text-zinc-800">
               코인 획득 내역
             </h2>
-
             <button className="text-zinc-400">
-              전체 보기
+              전체 보기 &gt;
             </button>
           </div>
-
           <div className="bg-white rounded-[36px] shadow-sm overflow-hidden">
-
             {histories.map((item, index) => (
-
               <div key={item.title}>
-
                 <div className="flex items-center gap-4 px-5 py-5">
-
                   <div className="w-16 h-16 rounded-full bg-[#fff3ec] flex items-center justify-center shrink-0">
                     <span className="text-3xl">
-                      {item.icon}
+                      <img src={item.image} alt="코인획득내역" />
                     </span>
                   </div>
-
                   <div className="flex-1">
-
                     <h3 className="text-xl font-bold text-zinc-800">
                       {item.title}
                     </h3>
-
                     <p className="text-zinc-400 mt-1">
                       {item.date}
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2">
-
                     <span className="text-3xl font-bold text-[#ff9eaa]">
                       {item.reward}
                     </span>
-
                     <span className="text-2xl">
-                      🪙
+                      <img src={newCatCoin} alt="코인" className="relative top-[2px] right-[3px] w-[30px] h-[30px] object-contain select-none pointer-events-none" />
                     </span>
                   </div>
                 </div>

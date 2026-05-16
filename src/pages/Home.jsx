@@ -7,7 +7,7 @@ import catProfile from '../assets/main/catProfile.png'
 import catCoin from '../assets/main/catCoin.png'
 import calender from '../assets/main/calender.png'
 import mainCat from '../assets/main/mainCat.png'
-import fourtuneCookie from '../assets/main/fourtuneCookie.png'
+import fortuneCookie from '../assets/main/fortuneCookie.png'
 import catPaw from '../assets/main/catPaw.png'
 import walletIcon from '../assets/main/walletIcon.png'
 import newsIcon from '../assets/main/newsIcon.png'
@@ -242,7 +242,7 @@ function Home({ setScreen }) {
                 className="mt-2 w-full h-[60px] rounded-[24px] bg-[#ffb7c5]/90 py-5 shadow-[0_8px_18px_rgba(255,183,197,0.45)] active:scale-[0.985] transition-transform">
                 <div className="flex items-center justify-center gap-3">
                   <span className="text-[32px] -mt-4">
-                    <img src={fourtuneCookie} alt="포춘쿠키" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
+                    <img src={fortuneCookie} alt="포춘쿠키" className="w-[52px] h-[52px] object-contain select-none pointer-events-none" />
                   </span>
                   <div className="text-left -mt-4">
                     <p className="text-white font-bold text-[16px]">오늘의 포춘쿠키 열기</p>
