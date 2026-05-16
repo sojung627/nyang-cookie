@@ -1,7 +1,7 @@
 // NicknameModal.jsx
 
 import React from 'react'
-import catProfile from '../assets/catProfile.png'
+import catProfile from '../assets/main/catProfile.png'
 
 const NicknameModal = ({ isOpen, onClose }) => {
 
@@ -23,7 +23,7 @@ const NicknameModal = ({ isOpen, onClose }) => {
               <img
                 src={catProfile}
                 alt="고양이"
-                className="w-[82px] h-[82px] object-contain"/>
+                className="w-[100px] h-[100px] object-contain"/>
             </div>
 
             {/* 연필 뱃지 */}
@@ -49,14 +49,14 @@ const NicknameModal = ({ isOpen, onClose }) => {
             <input
               type="text"
               maxLength={10}
-              placeholder="새 닉네임을 입력해주세요"
+              placeholder="닉네임을 입력해주세요"
               className="w-full h-[58px] rounded-[18px] border border-[#f1d8d3] bg-white px-5 pr-16 text-[15px] outline-none focus:border-[#ffb7c5]"/>
             <span className="absolute right-5 top-1/2 -translate-y-1/2 text-zinc-300 text-[14px]">
               0/10
             </span>
           </div>
           <p className="text-zinc-400 text-[13px] mt-3 px-1">
-            · 한글, 영문, 숫자 2~10자까지 가능해요.
+            . 한글, 영문, 숫자 2~10자까지 가능해요.
           </p>
         </div>
 

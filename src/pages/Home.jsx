@@ -3,12 +3,16 @@ import FortuneModal from '../components/FortuneModal'
 import FortuneLoadingModal from '../components/FortuneLoadingModal'
 import FortuneResultModal from '../components/FortuneResultModal'
 import NicknameModal from '../components/NicknameModal'
-import catProfile from '../assets/catProfile.png'
-import catCoin from '../assets/catCoin.png'
-import calender from '../assets/calender.png'
-import mainCat from '../assets/mainCat.png'
-import fourtuneCookie from '../assets/fourtuneCookie.png'
-import catPaw from '../assets/catPaw.png'
+import catProfile from '../assets/main/catProfile.png'
+import catCoin from '../assets/main/catCoin.png'
+import calender from '../assets/main/calender.png'
+import mainCat from '../assets/main/mainCat.png'
+import fourtuneCookie from '../assets/main/fourtuneCookie.png'
+import catPaw from '../assets/main/catPaw.png'
+import walletIcon from '../assets/main/walletIcon.png'
+import newsIcon from '../assets/main/newsIcon.png'
+import bagIcon from '../assets/main/bagIcon.png'
+import bookIcon from '../assets/main/bookIcon.png'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 function Home({ setScreen }) {
@@ -49,10 +53,10 @@ function Home({ setScreen }) {
   }
 
   const missions = [
-    { title: '오늘의 절약 성공', reward: 30, bg: 'bg-[#fff7f4]', icon: '🐹' },
-    { title: '경제뉴스 읽기', reward: 30, bg: 'bg-[#f5f8ff]', icon: '📰' },
-    { title: '투자 공부 5분', reward: 30, bg: 'bg-[#f2fffb]', icon: '📖' },
-    { title: '충동 소비 참기', reward: 30, bg: 'bg-[#faf4ff]', icon: '🛍️' },
+    { title: '오늘의 절약 성공', reward: 30, bg: 'bg-[#fff7f4]', image: walletIcon },
+    { title: '경제뉴스 읽기', reward: 30, bg: 'bg-[#f5f8ff]', image: newsIcon },
+    { title: '투자 공부 5분', reward: 30, bg: 'bg-[#f2fffb]', image: bookIcon },
+    { title: '충동 소비 참기', reward: 30, bg: 'bg-[#faf4ff]', image: bagIcon },
   ]
 
   const messages = [
@@ -69,7 +73,7 @@ function Home({ setScreen }) {
       desc: '내가 항상 응원하고 있다옹!'
     },
     {
-      title: '오늘은 왠지 좋은 일이 생길 것 같다냥 🍀',
+      title: '오늘은 좋은 일이 생길 것 같다냥 🍀',
       desc: '기분 좋은 하루 시작해보자옹!'
     },
     {
@@ -257,13 +261,17 @@ function Home({ setScreen }) {
 
           <div className="grid grid-cols-2 gap-3 mt-5">
             {missions.map((mission) => (
-              <div key={mission.title} className={`${mission.bg} rounded-[26px] p-5 min-h-[145px] shadow-[0_4px_18px_rgba(0,0,0,0.03)]`}>
-                <div className="text-[34px]">{mission.icon}</div>
-                <h3 className="font-bold text-[16px] leading-snug mt-3">{mission.title}</h3>
-                <p className="relative right-[9px] flex text-zinc-400 mt-3 text-[13px]">
-                    <img src={catCoin} alt="코인" className="relative bottom-[9px] w-[40px] h-[40px] object-contain select-none pointer-events-none" />
-                    냥냥코인 {mission.reward}+
-                </p>
+              <div key={mission.title} className={`${mission.bg} rounded-[26px] w-[170px] h-[150px] p-5 min-h-[145px] shadow-[0_4px_18px_rgba(0,0,0,0.03)]`}>
+                <div className="relative bottom-[12px]">
+                  <img src={mission.image} alt="아이콘" className="relative bottom-[9px] w-[100px] h-[100px] mx-auto object-contain select-none pointer-events-none" />
+                  <h3 className="font-bold text-[16px] text-center leading-snug -mt-8">{mission.title}</h3>
+                    <div className="mx-auto">
+                      <p className="relative right-[3px] flex text-zinc-400 mt-1 text-[13px]">
+                        <img src={catCoin} alt="코인" className="relative bottom-[9px] w-[35px] h-[35px] object-contain select-none pointer-events-none" />
+                          냥냥코인 {mission.reward}+
+                      </p>
+                   </div>
+                </div>
               </div>
             ))}
           </div>
