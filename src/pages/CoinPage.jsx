@@ -4,7 +4,10 @@ import fortuneCookie from '../assets/main/fortuneCookie.png'
 import calender from '../assets/main/calender.png'
 import bagIcon from '../assets/main/bagIcon.png'
 import catProfile from '../assets/main/catProfile.png'
+import specialItem from '../assets/main/specialItem.png'
 import document from '../assets/main/document.png'
+import catPaw from '../assets/main/catPaw.png'
+import talk from '../assets/main/talk.png'
 
 function CoinPage({ onBack, coin = 2450 }) {
 
@@ -52,17 +55,17 @@ function CoinPage({ onBack, coin = 2450 }) {
       desc: "보유 아이템 32개",
     },
     {
-      icon: "📚",
+      image: newCatCoin,
       title: "배경 구매",
       desc: "보유 배경 8개",
     },
     {
-      icon: "💬",
+      image: talk,
       title: "감정 표현 구매",
       desc: "보유 감정 15개",
     },
     {
-      icon: "🎁",
+      image: specialItem,
       title: "한정 상품",
       desc: "특별한 아이템",
     },
@@ -78,10 +81,10 @@ function CoinPage({ onBack, coin = 2450 }) {
           className="absolute left-5 text-3xl text-zinc-500">
           &lt;
         </button>
-        <h1 className="relative text-[20px] font-bold text-zinc-800 flex items-center -gap-5">
+        <h1 className="relative text-[25px] font-bold text-zinc-800 flex items-center -gap-5">
           냥냥코인
           <span>
-            <img src={newCatCoin} alt="코인" className="relative top-[2px] left-[4px] w-[30px] h-[30px] object-contain select-none pointer-events-none" />
+            <img src={newCatCoin} alt="코인" className="relative top-[2px] left-[4px] w-[35px] h-[35px] object-contain select-none pointer-events-none" />
           </span>
         </h1>
       </header>
@@ -165,29 +168,20 @@ function CoinPage({ onBack, coin = 2450 }) {
 
         {/* 주간 통계 */}
         <section>
-
           <div className="flex items-center justify-between mb-4">
-
             <h2 className="text-3xl font-bold text-zinc-800">
               주간 획득 통계
             </h2>
-
             <span className="text-zinc-400">
               5.12 ~ 5.18
             </span>
           </div>
-
           <div className="bg-white rounded-[36px] p-6 shadow-sm">
-
             <div className="flex items-end justify-between h-64">
-
               {weeklyStats.map((item) => (
-
                 <div
                   key={item.day}
-                  className="flex flex-col items-center flex-1"
-                >
-
+                  className="flex flex-col items-center flex-1">
                   <span className={`text-sm mb-2 ${
                     item.value >= 100
                       ? "text-[#ff9eaa] font-bold"
@@ -195,7 +189,6 @@ function CoinPage({ onBack, coin = 2450 }) {
                   }`}>
                     {item.value}
                   </span>
-
                   <div
                     className={`w-10 rounded-full ${
                       item.value >= 100
@@ -206,7 +199,6 @@ function CoinPage({ onBack, coin = 2450 }) {
                       height: `${Math.max(item.value * 1.2, 6)}px`
                     }}
                   />
-
                   <p className={`mt-4 font-bold ${
                     item.value >= 100
                       ? "text-[#ff9eaa]"
@@ -214,7 +206,6 @@ function CoinPage({ onBack, coin = 2450 }) {
                   }`}>
                     {item.day}
                   </p>
-
                   <p className="text-xs text-zinc-400 mt-1">
                     {item.date}
                   </p>
@@ -226,38 +217,27 @@ function CoinPage({ onBack, coin = 2450 }) {
 
         {/* 코인 사용처 */}
         <section>
-
           <div className="flex items-center justify-between mb-4">
-
             <h2 className="text-3xl font-bold text-zinc-800">
               코인 사용처
             </h2>
-
             <button className="text-zinc-400">
-              모두 보기
+              모두 보기 &gt;
             </button>
           </div>
-
           <div className="bg-white rounded-[36px] p-5 shadow-sm grid grid-cols-2 gap-5">
-
             {usages.map((item) => (
-
               <div
                 key={item.title}
-                className="flex flex-col items-center text-center"
-              >
-
+                className="flex flex-col items-center text-center">
                 <div className="w-24 h-24 rounded-full bg-[#fff3ec] flex items-center justify-center">
-                  <span className="text-5xl">
-                    <img src={item.image} alt="코인사용처" className="w-[150px] h-[150px] object-contain select-none pointer-events-none" />
-                    {item.image}
+                  <span className="text-3xl">
+                    <img src={item.image} alt="코인사용처" className="w-[100px] h-[100px] object-contain select-none pointer-events-none" />
                   </span>
                 </div>
-
                 <h3 className="text-xl font-bold text-zinc-800 mt-4">
                   {item.title}
                 </h3>
-
                 <p className="text-zinc-400 text-sm mt-2">
                   {item.desc}
                 </p>
@@ -267,27 +247,29 @@ function CoinPage({ onBack, coin = 2450 }) {
         </section>
 
         {/* 하단 CTA */}
-        <section className="bg-[#fff3ec] rounded-[36px] p-5 shadow-sm flex items-center justify-between">
-
-          <div className="flex items-center gap-4">
-
-            <div className="text-7xl">
-              🐱
-            </div>
-
-            <div>
-
-              <h3 className="text-2xl font-bold text-zinc-800 leading-snug">
-                더 많은 코인을 모아
-                <br />
-                쿠키를 꾸며보라냥! 🐾
-              </h3>
-            </div>
+        <section className="bg-[#fff3ec] rounded-[36px] p-5 shadow-sm flex items-center gap-6">
+          {/* 왼쪽 고양이 */}
+          <div className="text-7xl flex-shrink-0">
+            🐱
           </div>
-
-          <button className="bg-gradient-to-r from-[#ffb7b2] to-[#ff9eaa] text-white rounded-3xl px-6 py-4 font-bold shadow-sm">
-            미션 하러 가기
-          </button>
+          {/* 오른쪽 영역 */}
+          <div className="flex flex-col items-end w-full">
+            {/* 제목 + 발바닥 */}
+            <div className="flex items-center gap-2">
+              <h3 className="text-2xl text-[23px] font-bold text-zinc-800 whitespace-nowrap">
+                집사 돈벌라옹!
+              </h3>
+              <img
+                src={catPaw}
+                alt="고양이발바닥"
+                className="relative right-[15px] w-[50px] h-[50px] object-contain select-none pointer-events-none"
+              />
+            </div>
+            {/* 버튼 */}
+            <button className="flex items-center justify-center w-[160px] h-[40px] mt-1 bg-gradient-to-r from-[#ffb7b2] to-[#ff9eaa] text-white rounded-3xl font-bold shadow-sm">
+              미션 하러 가기
+            </button>
+          </div>
         </section>
       </div>
     </div>
