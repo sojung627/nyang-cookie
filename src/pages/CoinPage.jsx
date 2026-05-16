@@ -3,6 +3,8 @@ import newCatCoin from '../assets/main/newCatCoin.png'
 import fortuneCookie from '../assets/main/fortuneCookie.png'
 import calender from '../assets/main/calender.png'
 import bagIcon from '../assets/main/bagIcon.png'
+import catProfile from '../assets/main/catProfile.png'
+import document from '../assets/main/document.png'
 
 function CoinPage({ onBack, coin = 2450 }) {
 
@@ -15,15 +17,15 @@ function CoinPage({ onBack, coin = 2450 }) {
     },
     {
       title: "출석 체크",
-      date: "05.16 09:12",
+      date: "2026.05.16 09:12",
       reward: "+30",
       image: calender,
     },
     {
       title: "오늘의 미션 완료",
-      date: "05.16 08:45",
+      date: "2026.05.16 08:45",
       reward: "+40",
-      
+      image: document,
     },
     {
       title: "상점 구매 취소 보상",
@@ -45,7 +47,7 @@ function CoinPage({ onBack, coin = 2450 }) {
 
   const usages = [
     {
-      icon: "🐱",
+      image: catProfile,
       title: "고양이 꾸미기",
       desc: "보유 아이템 32개",
     },
@@ -247,7 +249,8 @@ function CoinPage({ onBack, coin = 2450 }) {
 
                 <div className="w-24 h-24 rounded-full bg-[#fff3ec] flex items-center justify-center">
                   <span className="text-5xl">
-                    {item.icon}
+                    <img src={item.image} alt="코인사용처" className="w-[150px] h-[150px] object-contain select-none pointer-events-none" />
+                    {item.image}
                   </span>
                 </div>
 
