@@ -1,5 +1,5 @@
 import React from 'react'
-import catCoin from '../assets/main/catCoin.png'
+import newCatCoin from '../assets/main/newCatCoin.png'
 
 function CoinPage({ onBack, coin = 2450 }) {
 
@@ -73,42 +73,39 @@ function CoinPage({ onBack, coin = 2450 }) {
           className="absolute left-5 text-3xl text-zinc-500">
           &lt;
         </button>
-        <h1 className="relative text-3xl font-bold text-zinc-800 flex items-center -gap-5">
+        <h1 className="relative text-[20px] font-bold text-zinc-800 flex items-center -gap-5">
           냥냥코인
           <span>
-            <img src={catCoin} alt="코인" className="relative top-[2px] right-[3px] w-[70px] h-[70px] object-contain select-none pointer-events-none" />
+            <img src={newCatCoin} alt="코인" className="relative top-[2px] left-[4px] w-[30px] h-[30px] object-contain select-none pointer-events-none" />
           </span>
         </h1>
       </header>
 
       <div className="px-5 mt-8 flex flex-col gap-6">
-
         {/* 현재 보유 코인 */}
         <section className="bg-[#fff3ec] rounded-[36px] p-6 shadow-sm">
-          <div className="flex items-center gap-5">
-            <div className="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0">
+          <div className="relative flex items-center -gap-3">
               <span className="text-7xl">
-                🪙
+                <img src={newCatCoin} alt="코인" className="absolute relative top-[2px] right-[3px] w-[100px] h-[100px] object-contain select-none pointer-events-none" />
               </span>
-            </div>
-
             <div className="flex-1">
-              <p className="text-zinc-400 text-lg">
+              <p className="text-zinc-400 text-[15px] relative left-[10px]">
                 현재 보유 코인
               </p>
-              <h2 className="text-7xl font-bold text-zinc-800 mt-3">
+              <h2 className="text-7xl font-bold text-[30px] relative left-[10px] text-zinc-800 mt-1">
                 {coin.toLocaleString()}
               </h2>
-              <div className="mt-5 bg-white rounded-full px-5 py-3 inline-flex items-center gap-2 shadow-sm">
-                <span className="text-xl">
-                  🪙
-                </span>
-                <p className="text-zinc-700 font-medium">
+
+              <div className="relative left-[10px] mt-2 bg-white rounded-full w-[215px] h-[25px] px-2 py-2 inline-flex items-center gap-2 shadow-sm">
+                <p className="relative left-[7px] bottom-[3px] text-zinc-700 font-semibold text-[12px]">
                   이번 주
                   <span className="text-[#ff9eaa] font-bold">
                     {" "}+120
                   </span>
                   코인 획득했다옹!
+                  <span className="text-xl inline-flex items-center">
+                    <img src={newCatCoin} alt="코인" className="relative top-[5px] left-[3px] w-[20px] h-[20px] object-contain select-none pointer-events-none" />
+                  </span>
                 </p>
               </div>
             </div>
