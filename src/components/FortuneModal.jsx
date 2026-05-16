@@ -1,12 +1,12 @@
+import catPaw from '../assets/main/catPaw.png'
+
 function FortuneModal({ isOpen, onClose, onOpenResult }) {
   if (!isOpen) return null
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-5">
-
       {/* 모달 */}
       <div className="w-full max-w-md bg-[#fcf8f5] rounded-[40px] shadow-sm p-6 relative overflow-hidden">
-
         {/* 닫기 버튼 */}
         <button
           onClick={onClose}
@@ -16,9 +16,9 @@ function FortuneModal({ isOpen, onClose, onOpenResult }) {
 
         {/* 리본 */}
         <div className="flex justify-center">
-          <div className="bg-gradient-to-r from-[#ffb7b2] to-[#ff9eaa] px-8 py-3 rounded-full shadow-sm">
-            <h2 className="text-white text-2xl font-bold">
-              🐾 오늘의 포춘쿠키
+          <div className="w-[270px] h-[50px] bg-gradient-to-r from-[#ffb7b2] to-[#ff9eaa] px-3 py-3 rounded-full shadow-sm">
+            <h2 className="relative bottom-[10px] flex items-center justify-center text-white text-2xl font-bold">
+              <img src={catPaw} alt="고양이발바닥" className="relative left-[2px] top-[2px] w-[45px]" /> 오늘의 포춘쿠키
             </h2>
           </div>
         </div>
