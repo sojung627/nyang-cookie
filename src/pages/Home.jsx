@@ -28,7 +28,7 @@ function Home({ setScreen }) {
   const [coin, setCoin] = useState(() => {
     const savedCoin = localStorage.getItem(STORAGE_KEY)
     const parsed = Number(savedCoin)
-    return Number.isFinite(parsed) ? parsed : 2450
+    return Number.isFinite(parsed) ? parsed : 0
   })
 
   useEffect(() => {
@@ -74,7 +74,7 @@ function Home({ setScreen }) {
       desc: '내가 항상 응원하고 있다옹!'
     },
     {
-      title: '오늘은 좋은 일이 생길 것 같다냥 🍀',
+      title: '오늘 좋은 일이 생길 것 같다냥 🍀',
       desc: '기분 좋은 하루 시작해보자옹!'
     },
     {

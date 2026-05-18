@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import newCatCoin from '../assets/main/newCatCoin.png'
 import fortuneCookie from '../assets/main/fortuneCookie.png'
 import calender from '../assets/main/calender.png'
@@ -9,7 +9,22 @@ import document from '../assets/main/document.png'
 import catPaw from '../assets/main/catPaw.png'
 import talk from '../assets/main/talk.png'
 
-function CoinPage({ onBack, coin = 2450 }) {
+function CoinPage({ onBack }) {
+
+  // 내 코인 조회
+  const STORAGE_KEY = 'nyangcookie_coin'
+
+  // localStorage 코인 불러오기
+  const [coin, setCoin] = useState(() => {
+    const savedCoin = localStorage.getItem(STORAGE_KEY)
+    const parsed = Number(savedCoin)
+    // 저장된 코인 있으면 사용
+    if (Number.isFinite(parsed)) {
+      return parsed
+    }
+    // 없으면 기본값
+    return 0
+  })
 
   const histories = [
     {
@@ -47,6 +62,11 @@ function CoinPage({ onBack, coin = 2450 }) {
     { day: "금", date: "5/17", value: 0 },
     { day: "토", date: "5/18", value: 0 },
   ]
+
+  // 이번주 획득 코인
+  const weeklyEarnedCoin = weeklyStats.reduce((sum, item) => {
+    return sum + item.value
+  }, 0)
 
   const usages = [
     {
@@ -108,7 +128,7 @@ function CoinPage({ onBack, coin = 2450 }) {
                 <p className="relative left-[7px] bottom-[3px] text-zinc-700 font-semibold text-[12px]">
                   이번 주
                   <span className="text-[#ff9eaa] font-bold">
-                    {" "}+120
+                    {" "}+{weeklyEarnedCoin}
                   </span>
                   코인 획득했다옹!
                   <span className="text-xl inline-flex items-center">
