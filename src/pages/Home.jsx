@@ -301,6 +301,33 @@ function Home({ setScreen }) {
             setIsLoadingOpen(true)
             setTimeout(() => {
               setCoin((prev) => prev + rewardValue)
+              // 오늘 요일 인덱스
+              const today = new Date().getDay()
+              // 기존 통계 가져오기
+              const savedStats = localStorage.getItem('nyangcookie_weekly_stats')
+              let parsed
+              // 저장된 통계 있으면 사용
+              if (savedStats) {
+                parsed = JSON.parse(savedStats)
+              } else {
+                // 최초 기본값 생성
+                parsed = [
+                  { day: "일", date: "조회실패", value: 0 },
+                  { day: "월", date: "조회실패", value: 0 },
+                  { day: "화", date: "조회실패", value: 0 },
+                  { day: "수", date: "조회실패", value: 0 },
+                  { day: "목", date: "조회실패", value: 0 },
+                  { day: "금", date: "조회실패", value: 0 },
+                  { day: "토", date: "조회실패", value: 0 },
+                ]
+              }
+              // 오늘 코인 증가
+              parsed[today].value += rewardValue
+
+              localStorage.setItem(
+                'nyangcookie_weekly_stats',
+                JSON.stringify(parsed)
+              )
               setIsLoadingOpen(false)
               setIsResultOpen(true)
             }, 2000)

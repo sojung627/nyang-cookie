@@ -11,8 +11,13 @@ import talk from '../assets/main/talk.png'
 
 function CoinPage({ onBack }) {
 
-  // 내 코인 조회
+  // 내 코인 조회 키
   const STORAGE_KEY = 'nyangcookie_coin'
+
+  // 주간 통계 저장 키
+  const WEEKLY_STATS_KEY = 'nyangcookie_weekly_stats'
+
+  // ==============================================================================================================
 
   // localStorage 코인 불러오기
   const [coin, setCoin] = useState(() => {
@@ -53,20 +58,69 @@ function CoinPage({ onBack }) {
     },
   ]
 
-  const weeklyStats = [
-    { day: "일", date: "5/12", value: 30 },
-    { day: "월", date: "5/13", value: 0 },
-    { day: "화", date: "5/14", value: 60 },
-    { day: "수", date: "5/15", value: 40 },
-    { day: "목", date: "5/16", value: 120 },
-    { day: "금", date: "5/17", value: 0 },
-    { day: "토", date: "5/18", value: 0 },
-  ]
+  // 일 ~ 토 (실제 날짜로 뜨게 하기)
+  const generateCurrentWeeklyLayout = () => {
+    const days = ["일", "월", "화", "수", "목", "금", "토"]
+    const current = new Date()
+    const currentDay = current.getDay()
+
+    // 이번 주 일요일 기준 날짜 계산
+    const sunday = new Date(current)
+    sunday.setDate(current.getDate() - currentDay)
+
+    return days.map((day, index) => {
+      const nextDate = new Date(sunday)
+      nextDate.setDate(sunday.getDate() + index)
+
+      const month = nextDate.getMonth() + 1
+      const date = nextDate.getDate()
+
+      return {
+        day,
+        date: `${month}.${date}`,
+        value: 0
+      }
+    })
+  }
+
+  // localStorage 기반 주간 통계 및 동적 날짜 초기화
+  const [weeklyStats, setWeeklyStats] = useState(() => {
+    const savedStats = localStorage.getItem(WEEKLY_STATS_KEY)
+    const currentWeekLayout = generateCurrentWeeklyLayout()
+
+    if (savedStats) {
+      const parsedStats = JSON.parse(savedStats)
+      // 기존 저장된 value이 있다면 이번주의 날짜 레이아웃에 병합 처리
+      return currentWeekLayout.map(layoutItem => {
+        const matchingSaved = parsedStats.find(savedItem => savedItem.day === layoutItem.day)
+        return matchingSaved
+          ? { ...layoutItem, value: matchingSaved.value }
+          : layoutItem
+      })
+    }
+    return currentWeekLayout
+  })
 
   // 이번주 획득 코인
   const weeklyEarnedCoin = weeklyStats.reduce((sum, item) => {
     return sum + item.value
   }, 0)
+
+  // 이번 주 일 ~ 토 문자열 반환 (헤더 노출용)
+  const getWeeklyRangeString = () => {
+    if (weeklyStats.length === 7) {
+      return `${weeklyStats[0].date} ~ ${weeklyStats[6].date}`
+    }
+    return ""
+  }
+
+  // 주간 통계 localStorage 저장
+  useEffect(() => {
+    localStorage.setItem(
+      WEEKLY_STATS_KEY,
+      JSON.stringify(weeklyStats)
+    )
+  }, [weeklyStats])
 
   const usages = [
     {
@@ -152,7 +206,7 @@ function CoinPage({ onBack }) {
           </div>
           <div className="bg-white rounded-[36px] shadow-sm overflow-hidden">
             {histories.map((item, index) => (
-              <div key={item.title}>
+              <div key={`${item.title}-${index}`}>
                 <div className="flex items-center gap-4 px-5 py-5">
                   <div className="w-16 h-16 rounded-full bg-[#fff3ec] flex items-center justify-center shrink-0">
                     <span className="text-3xl">
@@ -193,7 +247,7 @@ function CoinPage({ onBack }) {
               주간 획득 통계
             </h2>
             <span className="text-zinc-400">
-              5.12 ~ 5.18
+              {getWeeklyRangeString()}
             </span>
           </div>
           <div className="bg-white rounded-[36px] p-6 shadow-sm">
@@ -246,9 +300,9 @@ function CoinPage({ onBack }) {
             </button>
           </div>
           <div className="bg-white rounded-[36px] p-5 shadow-sm grid grid-cols-2 gap-5">
-            {usages.map((item) => (
+            {usages.map((item, index) => (
               <div
-                key={item.title}
+                key={`${item.title}-${index}`}
                 className="flex flex-col items-center text-center">
                 <div className="w-24 h-24 rounded-full bg-[#fff3ec] flex items-center justify-center">
                   <span className="text-3xl">
