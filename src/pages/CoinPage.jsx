@@ -9,62 +9,29 @@ import document from '../assets/main/document.png'
 import catPaw from '../assets/main/catPaw.png'
 import talk from '../assets/main/talk.png'
 
+const WEEKLY_GRAPH_THRESHOLD = 100
+
 function CoinPage({ onBack }) {
 
-  // 내 코인 조회 키
   const STORAGE_KEY = 'nyangcookie_coin'
-
-  // 주간 통계 저장 키
   const WEEKLY_STATS_KEY = 'nyangcookie_weekly_stats'
+  const COIN_HISTORY_KEY = 'nyangcookie_coin_history'
 
-  // ==============================================================================================================
+  const getCurrentFormattedDateTime = () => {
+    const now = new Date()
+    const year = now.getFullYear()
+    const month = String(now.getMonth() + 1).padStart(2, '0')
+    const date = String(now.getDate()).padStart(2, '0')
+    const hours = String(now.getHours()).padStart(2, '0')
+    const minutes = String(now.getMinutes()).padStart(2, '0')
+    return `${year}.${month}.${date} ${hours}:${minutes}`
+  }
 
-  // localStorage 코인 불러오기
-  const [coin, setCoin] = useState(() => {
-    const savedCoin = localStorage.getItem(STORAGE_KEY)
-    const parsed = Number(savedCoin)
-    // 저장된 코인 있으면 사용
-    if (Number.isFinite(parsed)) {
-      return parsed
-    }
-    // 없으면 기본값
-    return 0
-  })
-
-  const histories = [
-    {
-      title: "포춘쿠키 열기",
-      date: "2026.05.16 14:30",
-      reward: "+50",
-      image: fortuneCookie,
-    },
-    {
-      title: "출석 체크",
-      date: "2026.05.16 09:12",
-      reward: "+30",
-      image: calender,
-    },
-    {
-      title: "오늘의 미션 완료",
-      date: "2026.05.16 08:45",
-      reward: "+40",
-      image: document,
-    },
-    {
-      title: "상점 구매 취소 보상",
-      date: "2026.05.15 16:20",
-      reward: "+20",
-      image: bagIcon,
-    },
-  ]
-
-  // 일 ~ 토 (실제 날짜로 뜨게 하기)
   const generateCurrentWeeklyLayout = () => {
     const days = ["일", "월", "화", "수", "목", "금", "토"]
     const current = new Date()
     const currentDay = current.getDay()
 
-    // 이번 주 일요일 기준 날짜 계산
     const sunday = new Date(current)
     sunday.setDate(current.getDate() - currentDay)
 
@@ -83,14 +50,12 @@ function CoinPage({ onBack }) {
     })
   }
 
-  // localStorage 기반 주간 통계 및 동적 날짜 초기화
   const [weeklyStats, setWeeklyStats] = useState(() => {
     const savedStats = localStorage.getItem(WEEKLY_STATS_KEY)
     const currentWeekLayout = generateCurrentWeeklyLayout()
 
     if (savedStats) {
       const parsedStats = JSON.parse(savedStats)
-      // 기존 저장된 value이 있다면 이번주의 날짜 레이아웃에 병합 처리
       return currentWeekLayout.map(layoutItem => {
         const matchingSaved = parsedStats.find(savedItem => savedItem.day === layoutItem.day)
         return matchingSaved
@@ -101,12 +66,106 @@ function CoinPage({ onBack }) {
     return currentWeekLayout
   })
 
-  // 이번주 획득 코인
+  const [coin, setCoin] = useState(() => {
+    const savedCoin = localStorage.getItem(STORAGE_KEY)
+    const parsed = Number(savedCoin)
+    if (Number.isFinite(parsed)) {
+      return parsed
+    }
+    return 0
+  })
+
+  const [historyList, setHistoryList] = useState(() => {
+    const savedHistory = localStorage.getItem(COIN_HISTORY_KEY)
+    if (savedHistory) {
+      return JSON.parse(savedHistory)
+    }
+    return []
+  })
+
+  const getImageByType = (type) => {
+    if (type === 'fortune') return fortuneCookie
+    if (type === 'attendance') return calender
+    if (type === 'mission') return document
+    if (type === 'cancel') return bagIcon
+    return newCatCoin
+  }
+
+  const getTitleByType = (type) => {
+    if (type === 'fortune') return "포춘쿠키 열기"
+    if (type === 'attendance') return "출석 체크"
+    if (type === 'mission') return "오늘의 미션 완료"
+    if (type === 'cancel') return "상점 구매 취소 보상"
+    return "냥냥 활동 보상"
+  }
+
+  const handleEarnCoin = (type, amount) => {
+    const title = getTitleByType(type)
+    const image = getImageByType(type)
+    const currentDateTime = getCurrentFormattedDateTime()
+
+    const newLog = {
+      id: Date.now() + Math.random(), // ✅ 고유 id 추가
+      title,
+      date: currentDateTime,
+      reward: amount,
+      image,
+    }
+
+    setHistoryList(prev => [newLog, ...prev])
+    setCoin(prev => prev + amount)
+
+    const currentDayIndex = new Date().getDay()
+    setWeeklyStats(prev => prev.map((item, index) => {
+      if (index === currentDayIndex) {
+        return { ...item, value: item.value + amount }
+      }
+      return item
+    }))
+  }
+
+  const handleEarnMultipleCoins = (rewards) => {
+    const now = Date.now()
+    const newLogs = rewards.map(({ type, amount }, i) => ({
+      id: now + i,
+      title: getTitleByType(type),
+      date: getCurrentFormattedDateTime(),
+      reward: amount,
+      image: getImageByType(type),
+    }))
+
+    // ✅ 한 번에 모두 추가
+    setHistoryList(prev => [...newLogs, ...prev])
+
+    const totalAmount = rewards.reduce((sum, { amount }) => sum + amount, 0)
+    setCoin(prev => prev + totalAmount)
+
+    const currentDayIndex = new Date().getDay()
+    setWeeklyStats(prev => prev.map((item, index) => {
+      if (index === currentDayIndex) {
+        return { ...item, value: item.value + totalAmount }
+      }
+      return item
+    }))
+  }
+
+  useEffect(() => {
+    localStorage.setItem(COIN_HISTORY_KEY, JSON.stringify(historyList))
+  }, [historyList])
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, String(coin))
+  }, [coin])
+
+  // ✅ id(timestamp) 기준으로 정렬 → 같은 제목도 순서 보장
+  const sortedHistories = [...historyList].sort((a, b) => {
+    return (b.id ?? 0) - (a.id ?? 0)
+  })
+
   const weeklyEarnedCoin = weeklyStats.reduce((sum, item) => {
     return sum + item.value
   }, 0)
 
-  // 이번 주 일 ~ 토 문자열 반환 (헤더 노출용)
   const getWeeklyRangeString = () => {
     if (weeklyStats.length === 7) {
       return `${weeklyStats[0].date} ~ ${weeklyStats[6].date}`
@@ -114,7 +173,6 @@ function CoinPage({ onBack }) {
     return ""
   }
 
-  // 주간 통계 localStorage 저장
   useEffect(() => {
     localStorage.setItem(
       WEEKLY_STATS_KEY,
@@ -126,17 +184,17 @@ function CoinPage({ onBack }) {
     {
       image: catProfile,
       title: "고양이 꾸미기",
-      desc: "보유 아이템 32개",
+      desc: "아이템 꾸미기",
     },
     {
       image: newCatCoin,
       title: "배경 구매",
-      desc: "보유 배경 8개",
+      desc: "배경 변경",
     },
     {
       image: talk,
       title: "감정 표현 구매",
-      desc: "보유 감정 15개",
+      desc: "감정 표현",
     },
     {
       image: specialItem,
@@ -148,7 +206,6 @@ function CoinPage({ onBack }) {
   return (
   <div className="min-h-screen bg-[#f5f1ed] flex justify-center">
     <div className="w-full max-w-[393px] min-h-screen bg-[#fcf8f5] pb-28">
-      {/* 헤더 */}
       <header className="px-5 pt-12 flex items-center justify-center relative">
         <button
           onClick={onBack}
@@ -164,7 +221,6 @@ function CoinPage({ onBack }) {
       </header>
 
       <div className="px-5 mt-8 flex flex-col gap-6">
-        {/* 현재 보유 코인 */}
         <section className="bg-[#fff3ec] rounded-[36px] p-6 shadow-sm">
           <div className="relative flex items-center -gap-3">
               <span className="text-7xl">
@@ -194,7 +250,6 @@ function CoinPage({ onBack }) {
           </div>
         </section>
 
-        {/* 코인 획득 내역 */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-3xl font-bold text-zinc-800">
@@ -204,43 +259,47 @@ function CoinPage({ onBack }) {
               전체 보기 &gt;
             </button>
           </div>
-          <div className="bg-white rounded-[36px] shadow-sm overflow-hidden">
-            {histories.map((item, index) => (
-              <div key={`${item.title}-${index}`}>
-                <div className="flex items-center gap-4 px-5 py-5">
-                  <div className="w-16 h-16 rounded-full bg-[#fff3ec] flex items-center justify-center shrink-0">
-                    <span className="text-3xl">
-                      <img src={item.image} alt="코인획득내역" />
-                    </span>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-zinc-800">
-                      {item.title}
-                    </h3>
-                    <p className="text-zinc-400 mt-1">
-                      {item.date}
-                    </p>
+          <div className="bg-white rounded-[36px] shadow-sm overflow-hidden min-h-[100px] flex flex-col justify-center">
+            {sortedHistories.length === 0 ? (
+              <p className="text-center text-zinc-400 py-10">코인 획득 내역이 없다옹!</p>
+            ) : (
+              sortedHistories.map((item, index) => (
+                // ✅ 고유 id를 key로 사용
+                <div key={item.id ?? `${item.title}-${index}`}>
+                  <div className="flex items-center gap-4 px-5 py-5">
+                    <div className="w-16 h-16 rounded-full bg-[#fff3ec] flex items-center justify-center shrink-0">
+                      <span className="text-3xl">
+                        <img src={item.image} alt={item.title} />
+                      </span>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-zinc-800">
+                        {item.title}
+                      </h3>
+                      <p className="text-zinc-400 mt-1">
+                        {item.date}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-3xl font-bold text-[#ff9eaa]">
+                        +{item.reward.toLocaleString()}
+                      </span>
+                      <span className="text-2xl">
+                        <img src={newCatCoin} alt="코인" className="relative top-[2px] right-[3px] w-[30px] h-[30px] object-contain select-none pointer-events-none" />
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-3xl font-bold text-[#ff9eaa]">
-                      {item.reward}
-                    </span>
-                    <span className="text-2xl">
-                      <img src={newCatCoin} alt="코인" className="relative top-[2px] right-[3px] w-[30px] h-[30px] object-contain select-none pointer-events-none" />
-                    </span>
-                  </div>
+                  {index < sortedHistories.length - 1 && (
+                    <div className="border-t border-zinc-100 ml-24" />
+                  )}
                 </div>
-
-                {index < histories.length - 1 && (
-                  <div className="border-t border-zinc-100 ml-24" />
-                )}
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </section>
 
-        {/* 주간 통계 */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-3xl font-bold text-zinc-800">
@@ -257,7 +316,7 @@ function CoinPage({ onBack }) {
                   key={item.day}
                   className="flex flex-col items-center flex-1">
                   <span className={`text-sm mb-2 ${
-                    item.value >= 100
+                    item.value >= WEEKLY_GRAPH_THRESHOLD
                       ? "text-[#ff9eaa] font-bold"
                       : "text-zinc-400"
                   }`}>
@@ -265,7 +324,7 @@ function CoinPage({ onBack }) {
                   </span>
                   <div
                     className={`w-10 rounded-full ${
-                      item.value >= 100
+                      item.value >= WEEKLY_GRAPH_THRESHOLD
                         ? "bg-[#ff9eaa]"
                         : "bg-[#ffe3e0]"
                     }`}
@@ -274,7 +333,7 @@ function CoinPage({ onBack }) {
                     }}
                   />
                   <p className={`mt-4 font-bold ${
-                    item.value >= 100
+                    item.value >= WEEKLY_GRAPH_THRESHOLD
                       ? "text-[#ff9eaa]"
                       : "text-zinc-500"
                   }`}>
@@ -289,7 +348,6 @@ function CoinPage({ onBack }) {
           </div>
         </section>
 
-        {/* 코인 사용처 */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-3xl font-bold text-zinc-800">
@@ -320,15 +378,11 @@ function CoinPage({ onBack }) {
           </div>
         </section>
 
-        {/* 하단 CTA */}
         <section className="bg-[#fff3ec] rounded-[36px] p-5 shadow-sm flex items-center gap-6">
-          {/* 왼쪽 고양이 */}
           <div className="text-7xl flex-shrink-0">
             🐱
           </div>
-          {/* 오른쪽 영역 */}
           <div className="flex flex-col items-end w-full">
-            {/* 제목 + 발바닥 */}
             <div className="flex items-center gap-2">
               <h3 className="text-2xl text-[23px] font-bold text-zinc-800 whitespace-nowrap">
                 집사 돈벌라옹!
@@ -339,7 +393,6 @@ function CoinPage({ onBack }) {
                 className="relative right-[15px] w-[50px] h-[50px] object-contain select-none pointer-events-none"
               />
             </div>
-            {/* 버튼 */}
             <button className="flex items-center justify-center w-[160px] h-[40px] mt-1 bg-gradient-to-r from-[#ffb7b2] to-[#ff9eaa] text-white rounded-3xl font-bold shadow-sm">
               미션 하러 가기
             </button>
